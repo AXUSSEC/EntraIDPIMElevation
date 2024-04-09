@@ -233,7 +233,7 @@ switch ($PSCmdlet.ParameterSetName) {
     }
     "ActivateGroups"{
         try {
-            $MyEligibleGroups = Get-MgIdentityGovernancePrivilegedAccessGroupEligibilityScheduleInstance -Filter "principalId eq '$Me'" | Select-Object accessId, GroupId -ErrorAction Stop
+            $MyEligibleGroups = Get-MgIdentityGovernancePrivilegedAccessGroupEligibilityScheduleInstance -Filter "principalId eq '$Me'" | Select-Object accessId, GroupId | Where-Object AccessId -eq $AccessType -ErrorAction Stop
 
         }
         catch {
