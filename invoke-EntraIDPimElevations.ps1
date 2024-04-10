@@ -104,9 +104,18 @@ if ($ForceRefresh) {
 
 # Check if consent is requested and request it if true
 if ($Consent) {
+    $ScopesArray = @(
+        'RoleEligibilitySchedule.Read.Directory'
+        'RoleAssignmentSchedule.ReadWrite.Directory'
+        'User.Read.All'
+        'GroupMember.Read.All'
+        'PrivilegedEligibilitySchedule.ReadWrite.AzureADGroup'
+        'PrivilegedAccess.ReadWrite.AzureADGroup'
+        )
+    $ScopesString = $ScopesArray -join ", "
     try {
-        Connect-MgGraph -Scopes "RoleEligibilitySchedule.Read.Directory, RoleAssignmentSchedule.ReadWrite.Directory, User.Read.All, GroupMember.Read.All" -NoWelcome -ErrorAction Stop
-        Write-Host "Consent OK, exiting script" -ForegroundColor Green
+        Connect-MgGraph -Scopes $ScopesString -NoWelcome -ErrorAction Stop
+        Write-Host 'Consent OK, exiting script' -ForegroundColor Green
         Disconnect-MgGraph -ErrorAction SilentlyContinue | Out-Null
     exit      
     }
