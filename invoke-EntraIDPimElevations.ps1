@@ -229,7 +229,7 @@ switch ($PSCmdlet.ParameterSetName) {
                 $Activation = New-MgRoleManagementDirectoryRoleAssignmentScheduleRequest -BodyParameter $params -ErrorAction Stop
                 Write-Output "Activated role $($role) for $($ActivationDuration) hours from UTC $($Activation.ScheduleInfo.StartDateTime) and will expire at UTC $($Activation.ScheduleInfo.StartDateTime.AddHours($ActivationDuration))" 
             } catch {
-                <#Do this if a terminating exception happens#>
+                <#Do this if a terminating exception occurs#>
                 Write-Warning "Error activating role $($role): $($_.Exception.Message)"
                 
             }
