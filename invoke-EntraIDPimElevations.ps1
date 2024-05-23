@@ -197,13 +197,7 @@ switch ($PSCmdlet.ParameterSetName) {
         }
         Write-Host 'You are about to activate the following roles:' -ForegroundColor Green
         Write-Output $Roles | Sort-Object | Format-Table
-        Write-Output "This will be active for $($ActivationDuration) hours"
-        Write-Host 'Are you sure you want to continue? (Y/N)' -ForegroundColor Yellow
-        $answer = Read-Host
-        if ($answer -ne 'Y') {
-            Write-Output 'Exiting script'
-            break
-        }
+        Write-Output "This will be active for $($ActivationDuration) hours"        
         Write-Output "Activating roles: $RolesToActivate"
         Write-Output "Reason: $Justification"
         
@@ -267,13 +261,7 @@ switch ($PSCmdlet.ParameterSetName) {
         }
         Write-Host 'You are about to activate the following groups:' -ForegroundColor Green
         Write-Output $Groups | Sort-Object | Format-Table
-        Write-Output "This will be active for $($ActivationDuration) hours"
-        Write-Host 'Are you sure you want to continue? (Y/N)' -ForegroundColor Yellow
-        $answer = Read-Host
-        if ($answer -ne 'Y') {
-            Write-Output 'Exiting script'
-            break
-        }
+        Write-Output "This will be active for $($ActivationDuration) hours"        
         Write-Output "Activating groups: $GroupsToActivate"
         Write-Output "Reason: $Justification"
         foreach ($group in $Groups) {
