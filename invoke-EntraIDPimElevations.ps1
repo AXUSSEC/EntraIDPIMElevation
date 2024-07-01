@@ -283,7 +283,7 @@ switch ($PSCmdlet.ParameterSetName) {
             }
             try {
                 $MyActivation = New-MgIdentityGovernancePrivilegedAccessGroupAssignmentScheduleRequest -BodyParameter $params -ErrorAction Stop 	
-                Write-Output "Actived group $($group) $($accessId) for $($ActivationDuration) hours"
+                Write-Output "Activated group $($group) $($accessId) for $($ActivationDuration) hours"
             } catch {
                 <#Do this if a terminating exception happens#>
                 Write-Output "Failed activating $($accessId) to group $($group)"
