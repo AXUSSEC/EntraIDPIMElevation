@@ -64,7 +64,6 @@ function PIMRoles {
         Justification = "Daily support" 
         AccessType = "Member"
         ActivationDuration = 4
-        ForceRefresh = $true
     }
 
     . $PIMScriptPath @params
