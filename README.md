@@ -24,10 +24,15 @@ git clone https://github.com/Anticimex-USA/EntraIDPIMElevation.git
 
 Sign into the account whose groups you want to activate, and send a request to the admins to consent to the delegated permissions.
 
-## Using the repo
+## Prerequisites
+
+### *Microsoft Graph Command Line Tools* Enterprise Application
+
+This script requires access to the *Microsoft Graph Command Line Tools* Enterprise application in your tenant. Access to this is unrestricted by default; however, if you get an error mentioning referring to *Microsoft Graph Command Line Tools*, then your IT department has limited access to certain groups or users. Reach out to them to get access.
+
+## Using the script
 
 ***WARNING: Please take care to only use this for everyday roles and avoid using it for more privileged roles like Security Admin and Exchange Admin. This would defeat the purpose of PIM and your admin will be displeased.***
-
 Below is an example that, once added to your [PowerShell profile](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-7.4), if you run 
 
 ```PowerShell
