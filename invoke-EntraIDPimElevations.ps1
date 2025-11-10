@@ -111,8 +111,8 @@ if ($Consent) {
         'GroupMember.Read.All'
         'PrivilegedEligibilitySchedule.ReadWrite.AzureADGroup'
         'PrivilegedAccess.ReadWrite.AzureADGroup'
-        )
-    $ScopesString = $ScopesArray -join ", "
+    )
+    $ScopesString = $ScopesArray -join ', '
     try {
         Connect-MgGraph -Scopes $ScopesString -NoWelcome -ErrorAction Stop
         Write-Host 'Consent OK, exiting script' -ForegroundColor Green
@@ -146,7 +146,7 @@ try {
 
 switch ($PSCmdlet.ParameterSetName) {
     'GetGroups' {
-        $MyEligibleGroups = Get-MgIdentityGovernancePrivilegedAccessGroupEligibilityScheduleInstance -Filter "principalId eq '$Me'" | Select-Object accessId, GroupId
+        $MyEligibleGroups = Get-MgIdentityGovernancePrivilegedAccessGroupEligibilityScheduleInstance -All -Filter "principalId eq '$Me'" | Select-Object accessId, GroupId
         if ($($MyEligibleGroups.count) -eq 0) {
             Write-Warning 'No eligible groups found, exiting script'
             break
@@ -231,7 +231,7 @@ switch ($PSCmdlet.ParameterSetName) {
     }
     'ActivateGroups' {
         try {
-            $MyEligibleGroups = Get-MgIdentityGovernancePrivilegedAccessGroupEligibilityScheduleInstance -Filter "principalId eq '$Me'" | Select-Object accessId, GroupId | Where-Object AccessId -EQ $AccessType -ErrorAction Stop
+            $MyEligibleGroups = Get-MgIdentityGovernancePrivilegedAccessGroupEligibilityScheduleInstance -All -Filter "principalId eq '$Me'" | Select-Object accessId, GroupId | Where-Object AccessId -EQ $AccessType -ErrorAction Stop
 
         } catch {
             Write-Warning "Failed to get eligible groups: $($_.Exception.Message), exiting script"
@@ -282,7 +282,7 @@ switch ($PSCmdlet.ParameterSetName) {
                 justification = $Justification
             }
             try {
-                $MyActivation = New-MgIdentityGovernancePrivilegedAccessGroupAssignmentScheduleRequest -BodyParameter $params -ErrorAction Stop 	
+                New-MgIdentityGovernancePrivilegedAccessGroupAssignmentScheduleRequest -BodyParameter $params -ErrorAction Stop | Out-Null
                 Write-Output "Activated group $($group) $($accessId) for $($ActivationDuration) hours"
             } catch {
                 <#Do this if a terminating exception happens#>
@@ -291,6 +291,6 @@ switch ($PSCmdlet.ParameterSetName) {
             }
         }           
     }
-    Default { exit }
+    default { exit }
 }
 #Disconnect-MgGraph -ErrorAction SilentlyContinue | Out-Null
